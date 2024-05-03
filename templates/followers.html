@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Blog Lite - Followers</title>
+  </head>
+  <body>
+    <h1>Welcome {{cur_user.user_name}}</h1>
+    <div style="text-align:right;">
+    <a href="/search">search</a>
+    | 
+    <a href="/profile/{{cur_user.user_id}}">My Profile</a> 
+    |
+    <a href="/logout">logout</a>
+    </div>
+    
+    <div><h2>people who follow {{user_profile.user_name}} :</h2></div>
+    {% for f in followers_deets %}
+    <div>
+    <a href = '/profile/{{f.user_id}}'>{{f.user_name}}</a>
+    &nbsp
+      {% if cur_user.user_id == user_profile.user_id %}
+        {% if f.user_id in following_id %}
+          <a href = '/unfollow/{{f.user_id}}'> unfollow </a>
+        {% else %}
+          <a href="/follow/{{f.user_id}}"> follow </a>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% endfor %}
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+  </head>
+  <body>
+    <div style="text-align:right;">
+    <a href="/home">Home</a>
+    | 
+    <a href="/search">search</a> 
+    |
+    <a href="/logout">logout</a>
+    </div>
+    <div><h1>{{user.user_name}}'s profile</h1></div>
+    <h3>Name : {{user.user_name}}</h3>
+    {% if session["user"] != user.user_name %}
+      {% if user.user_id not in following_id %}
+        <a href='/follow/{{user.user_id}}'> follow </a>
+      {% else %}
+        <a href='/unfollow/{{user.user_id}}'> unfollow </a>
+      {% endif %}
+    {% endif %}
+    <h3>No of posts : {{post_count}} </h3>
+    <h3>Following :<a href='/following/{{user.user_id}}'> {{following}} </a> </h3>
+    <h3>Followers :<a href='/followers/{{user.user_id}}'> {{followers}}  </a>  </h3>
+    <div>
+    <h2>{{user.user_name}} posts</h2>
+    {% for blog in authors_blog %}
+    <div>
+    <h1>{{blog.blog_title}}</h1>
+    {% if blog.blog_imagepath != "" %}
+      <img src="../{{blog.blog_imagepath}}" width="250" height="250">
+    {% endif %}    
+    <p>{{blog.blog_content}}</p>
+    <h4>{{blog.blog_timestamp}}</h4>
+    {% if session["user"] == user.user_name %}
+    <p><a href='/edit_blog/{{blog.blog_id}}'> edit </a> 
+    | <a href='/delete_blog/{{blog.blog_id}}'>delete</a></p>
+    {% endif %}
+    </div>
+    {% endfor %}
+      <div><a href="/create_blog"> write a blog</a></div>
+    </div>
+  </body>
+</html>

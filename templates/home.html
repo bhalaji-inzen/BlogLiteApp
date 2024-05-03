@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Blog Lite - Home</title>
+  </head>
+  <body>
+    <h1>Welcome {{user.user_name}}</h1>
+    <div style="text-align:right;">
+    <a href="/search">search</a>
+    | 
+    <a href="/profile/{{user.user_id}}"> My Profile </a> 
+    |
+    <a href="/logout">logout</a>
+    </div>
+    
+    {% if blog_data == [] %}
+    <p>No blogs Found. </p>
+    {% else %}
+    <h2>My feed:</h2>
+    {% for data in blog_data %}
+    <div class="blog">  
+    <h3>{{data.blog_title}}</h3>
+    {% if data.blog_imagepath != "" %}
+      <img src="{{data.blog_imagepath}}" width="250" height="250">
+    {% endif %}
+    <p>{{data.blog_content}}</p>
+    {% for user in blog_authors %}
+      {% if user.user_name == data.blog_author %}
+        <p>Written By : <a href='/profile/{{user.user_id}}'>{{data.blog_author}}</a> </p>
+      {% endif %}
+    {% endfor %}
+    <h4>{{data.blog_timestamp}}</h4>
+    <br>
+    <br>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <a href="/create_blog">write your blog</a>
+  </body>
+</html>

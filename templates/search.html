@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Blog Lite - Search</title>
+  </head>
+  <body>
+    <h1>Welcome {{session["user"]}}</h1>
+    <div style="text-align:right;">
+    <a href="/home">Home</a>
+    | 
+    <a href="/profile/{{cur_user.user_id}}">My Profile</a> 
+    |
+    <a href="/logout">logout</a>
+    </div>
+    <form action="/search" method="POST">
+      <label>Search for:</label>
+      <input type="text" name="search">
+      <input type="submit" value="submit">
+    </form>
+  </body>
+</html>
